@@ -82,6 +82,30 @@ ranges of machine learning applications:
     (term: trianing set) , supervised learning problem focus more on 
     prediction by "learning" from training set.
 
+*** basic model about supervised learning
+**** notation
+     + training set
+       the "right answer collection" sample/dataset
+       i.g. the training set of the housing prices problem is the different
+            housing prices(right-answer) provided.
+     + m
+       Numbers of trainling examples
+     + x
+       imput
+     + y
+       output
+     + (x, y)
+       
+**** the working model 
+    i.e. the model for house prices problem:
+    
+     for learning algorithm implementtion we have basic procedure
+     1. define hypothesis function
+     2. define cost function of hypotheis
+     3. min cost function to get the "best" theta     
+     4. then we could do prediction using our hypothesis with the calculated "best" theta.
+
+
 *** Linear Regression 						    
 
      To predict *the continuous values* based on the sample data("right-answer")
