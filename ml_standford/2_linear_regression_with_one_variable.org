@@ -1,0 +1,119 @@
+** Linear Regression With One Variable(focusing on the housing prices example)
+
+*** linear regression with one variable model(abbreviate to <<LR1V>>)
+(illustrating with the housing prices example)
+Definition of Multivariate Linear Regression (abbreviate to <<MLR>>):
+In this supervised learning model, we predict the outputs(the housing price)
+through a linear hypothesis function which has n variables.
+(h = (theta0 + theta1 * x0 + theta2 * x1 * theta3 * x2....))
+
+Definition of [[LR1V]]:
+one variable for h in LRM (e.g the price u friend gived u for prediction)
+**** h for [[LR1V]] :x
+
+     \[
+     h_\theta(x) = \theta_{0} + \theta_{1} \times x
+     \]
+
+     [[file:r/0080.jpg][schematic graph]]
+
+**** The cost function for [[LR1V]]
+     Different theta0, theta1 will bring different hypothesis function (figure),
+     which "fit" the training set in different levels, and we need to define a
+     *cost function* to quantize the "fit" level or the quality of h.
+     There are many cost function, but the square error function is probably
+     the most commonly used one for the cost function of linear regression
+     problem.     
+***** <<Squared error funciton>> as cost function
+
+      \[
+      J(\theta_{0}, \theta_{1}) = \frac{1}{2m} \sum_{i=1}^m(h_{\theta}(x_{i}) - y_{i})^{2}
+      \]
+
+      actually, J(theta0, theta1) =
+      a * theta0^2 + b * theta1 ^ 2 + c * theta0 * theta1 + d (bow-shape graph)
+***** The goal for the cost function
+      Obviously, we need the cost as less as possible to fit or close the 
+      training set more. so our goal is to:
+      *find the (theta0, theta1) to minimize the cost function*
+
+      Squared error function' graph of the housing prices example
+      comes to: [[file:r/0090.jpg][J(theta0, theta1)]], And it's more convinient to use
+      the corresponding  [[file:r/0100.jpg][contour graph]] to replace it for our analysis.
+      each (theta0, theta1) in the same ellipse path has the same. 
+      J(theta0, theta1) value. So we could tell the center point is 
+      the one minimizing the J and that's what we want.
+      
+***** Getting the goal by *Gradient Descent Function<<GFD>> Algorithm* <<GFDA>>
+      In the class, Andrew don't explain why we just calculate the 
+      minimum (theta0, theta1) for the cost function J. But I guess,
+      It's not easy or efficient to calculate it, even for some 
+      complicated J. and instead we could use GFDA to get the suboptimul
+      solution(or local minimum). GFDA is a more general algorithm and 
+      is used not only in linear regression but other parts in ML.
+      GFDA is a abstract algorithm to *minimize arbitrary functions* include 
+      cost-functions and other function with various variables.
+      (?: Is andrew's saying rigorous? actually we just get subminimal, can we
+      say minimize some function?)
+      notice that J here refers to arbitrary general function J(theta0, theta1,
+      theta2, theta3 ....), but we take 2 parameters for simplicity. 
+
+******* Batch Gradient Descent
+	"Batch" : Each step of gradient descent uses all the training examples.
+	
+*******  The procedure of GFDA:
+         + Start with some specific theta0, theta1
+         + Keep changing theta0, theta1 to "reduce" J(theta0, theta1)
+	   use the following gradient descent function:
+	   \[
+	   \theta_{j} := \theta_{j} - \alpha \times \frac{\partial J(\theta_{0},\theta{1})}{\partial \theta_{j}}
+	   \ (for\ j\ = 0\ and\ j\ =\ 1)
+	   \]
+	   untill theta, theta1, changes sligtly.
+           *Warning:* 
+	   theta0, theta1 must be *updated simultaneously* that:	 
+	   $tmp0 := \theta_{0} - \alpha \times \frac{\partial J(\theta_{0},\theta{1})}{\partial \theta_{0}}$
+	   $tmp1 := \theta_{1} - \alpha \times \frac{\partial J(\theta_{0},\theta{1})}{\partial \theta_{1}}$
+	   $\theta_{0}\ :=\ tmp0$
+	   $\theta_{1}\ :=\ tmp1$ 
+******* Simple analysis of [[GFDA]]
+	- The running procedure looks like:
+	 [[file:r/0120.jpg][ starting from (0.7, 0.4)]]
+	  [[file:r/0110.jpg][starting from (0.6, 0.4)]]
+	- The obvious property of [[GFDA]]:
+	  + subopimum or global optimum
+	    if the target function is Error Square Function J(theta0, theta1)
+	    then different starting points end up with same global optimum 
+	    becuase J has bow-shape like function graph.
+	    but if our target function is like [[file:r/0110.jpg][starting from (0.6, 0.4)]], 
+	    different starting points may end up with different suboptimums.
+
+	  + If the first few iterations of gradient descent cause 
+	    f(theta0,theta1) to increase rather than decrease, then the most
+	    likely cause is that we have set the learning rate α to too large
+	    a value.
+        - Why [[GFDA]] works
+	  ?. here just explaining J has less than 2 variables, but how about 
+	  more than 2.
+	  we could regard one variable as active but the other one is fixed.
+	  then the graph would truns to be a curve with gradient, which
+	  aligned to the (the other variable, J) planar.
+	  pictures are worth a thousand words:
+	  [[file:r/0130.jpg][the "curve" for different theta]]
+	  [[file:r/0140.jpg][for each "curve"]]
+	  [[file:r/0150.jpg]["self-adjustment" when getting to the local minimal]]
+	  [[file:r/0160.jpg][learning rate need not too large]]
+******* applying GFDA to cost function
+       so even if our target is the [[square error function]], we could go further
+       for GFDA formular:
+
+       \[
+       \theta_{0} := \theta_{0} - \frac{\alpha}{m} \times \frac{\partial (h_{\theta}(x_{i}) - y_{i} )}{\partial \theta_{j}}
+       \]
+       
+       \[
+       \theta_{1} := \theta_{1} - \frac{\alpha}{m} \times \frac{\partial (h_{\theta}(x_{i}) - y_{i} )}{\partial \theta_{j}} \times x_{i}
+       \]
+
+       of course we are emplying "Batch" Gradient Descent here 
+                    
