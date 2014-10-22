@@ -60,10 +60,8 @@ ranges of machine learning applications:
 *** What is machine learning?
 **** The old definition as 1959 by Arthur Samuel. 
      + Informal and older definition:
-
        Field of study that gives computers the ability to learn without being
        explicitly programmed e.g.
-
        samuel built a checker program(robot) to play thousands of games
        to "understand" what kind of boards to win or lose, and eventually learn
        how to play checker. Although Samuel was not a good a checker himself but
