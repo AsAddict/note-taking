@@ -59,21 +59,17 @@ ranges of machine learning applications:
 
 *** What is machine learning?
 **** The old definition as 1959 by Arthur Samuel. 
-     + Informal and older definition:
-       Field of study that gives computers the ability to learn without being
-       explicitly programmed e.g.
-       samuel built a checker program(robot) to play thousands of games
-       to "understand" what kind of boards to win or lose, and eventually learn
-       how to play checker. Although Samuel was not a good a checker himself but
-       his "robot" make him better checker.
+     Field of study that gives computers the ability to learn without being
+     explicitly programmed.
+
+     e.g. samuel built a checker program(robot) to play thousands of games  to "understand" what kind of boards to win or lose, and eventually learn how to play checker. Although Samuel was not a good a checker himself but his "robot" make him better checker.
 **** The modern definition by Tom Mitchell
-     + Well-posed Learning Problem:
 
-       A computer program is said to learn from experience E with the respect
-       to some task T and some performance on T,
-       improved with experience E.(T & E & P) e.g.
+     A computer program is said to learn from experience E with the respect
+     to some task T and some performance on T,
+     improved with experience E.(T & E & P) e.g.
 
-       G-mail spam filter robot classifies the spam and non-spam emails (T) automatically.
+     G-mail spam filter robot classifies the spam and non-spam emails (T) automatically.
        its E is whether the users label some specific emails are spam or not.
        its P is the number of fraction of emails correctly classified as spams or
        not spams.
