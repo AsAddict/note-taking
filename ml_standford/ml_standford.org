@@ -100,9 +100,8 @@ ranges of machine learning applications:
      's value must be one value of some specific continuum.
      E.g. The house prices sample:
 
-     file:r/0010.jpg
-
-     file:r/0011.jpg
+     [[file:r/0010.jpg]]
+     [[file:r/0011.jpg]]
      (the car keep trying to predict continueous values of steering directions
      to drive itself)
 **** Classification(logistic Regression)
@@ -110,7 +109,7 @@ ranges of machine learning applications:
      To predict the *discrete value* based on the training set
      E.g.
 
-     file:r/0030.jpg
+     [[file:r/0030.jpg]]
 
      In the example, algoritmn analyse and classify the datasets
      into two types (magnigetn or benign), so we could predict a
@@ -140,15 +139,15 @@ ranges of machine learning applications:
 
     + Cluster gene-block have different influences on human
   
-      file:r/0050.jpg 
+      [[file:r/0050.jpg]]
       
     + Sounds seperation
 
-      file:r/0070.jpg
+      [[file:r/0070.jpg]]
 
     + More examples
 
-      file:r/0060.jpg
+      [[file:r/0060.jpg]]
     
       
 
