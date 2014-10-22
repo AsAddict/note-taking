@@ -140,6 +140,7 @@ ranges of machine learning applications:
 
      #+CAPTION: A black cat stalking a spider
      #+ATTR_HTML: :alt cat/spider image :title Action! :align right
+     
       [[file:r/0040.jpg]]
 
 
