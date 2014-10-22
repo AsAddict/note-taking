@@ -1,8 +1,8 @@
-
 * Machine learning by Andrew Ng on cousere
 
 Learning Algorithms is important, but more important
 to know how to convey them into practical problem.
+
                                -- andrew Ng 
 ** Introduction
 							   
@@ -19,43 +19,44 @@ ranges of machine learning applications:
 
   Large data-sets from growth of web are very useful to humans for analysis.
   E.g:
-  + Web Click Data
+  1. Web Click Data
 
-    analyzing(machine learning)  web click data help those internet companies
-    know and serve the users better
+     analyzing(machine learning)  web click data help those internet companies
+     know and serve the users better
 
-  + Medical Records
+  2. Medical Records
 
-    Using machine learning to analyzing the records and turn them to medical
-    knowledge help human to know diseases better is increasing necessary in
-    medical field.
+     Using machine learning to analyzing the records and turn them to medical
+     knowledge help human to know diseases better is increasing necessary in
+     medical field.
 
-  + Computational Biology
+  3. Computational Biology
 
-    Machine learning algorithms figure out what collected information about
-    the DNA sequences means to human.
+     Machine learning algorithms figure out what collected information about
+     the DNA sequences means to human.
 
-  + Engineering field
+  4. Engineering field
 
-    architecture field is still unexplored so much :)
+     architecture field is still unexplored so much :)
 
 + Applications which cant be programed by hand
   
   We cant program to solve problems but we could make robotic program
   to learn how to solve the program by itself. E.g.
-  + Autonomous helicopter
+  1. Autonomous helicopter
 
     It's hard to program to drive a helicopter but we could make a computer
     program to learn how to fly the helicopter by itself.
 
-  + N-L-P (Nature Language Processing)
-  + Computer Vision
-  + Self-customizing programs
+  2. N-L-P (Nature Language Processing)
+  3. Computer Vision
+  4. Self-customizing programs
     
     E.g. Amazon product recommendations, the computer program learns and
     customizes itself to specific customers based on their preferences.
 
-  + Understanding human learning (brain, real AI)
+  5. Understanding human learning (brain, real AI)
+
 *** What is machine learning?
 **** The old definition as 1959 by Arthur Samuel. 
      + Informal and older definition:
