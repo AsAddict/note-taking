@@ -138,7 +138,8 @@ ranges of machine learning applications:
      
     + Group the same new from different source
 
-
+     #+CAPTION: A black cat stalking a spider
+     #+ATTR_HTML: :alt cat/spider image :title Action! :align right
       [[file:r/0040.jpg]]
 
 
