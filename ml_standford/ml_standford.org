@@ -1,9 +1,12 @@
 * Machine learning by Andrew Ng on cousere
 
+#+begin_quote
 Learning Algorithms is important, but more important
 to know how to convey them into practical problem.
 
-                               -- andrew Ng 
+                                                                       -- andrew Ng 
+#+end_quote
+
 ** Introduction
 							   
 *** Before the course
@@ -64,13 +67,13 @@ ranges of machine learning applications:
 
      e.g. samuel built a checker program(robot) to play thousands of games  to "understand" what kind of boards to win or lose, and eventually learn how to play checker. Although Samuel was not a good a checker himself but his "robot" make him better checker.
 **** The modern definition by Tom Mitchell
-
      A computer program is said to learn from experience E with the respect
-     to some task T and some performance on T,
-     improved with experience E.(T & E & P) e.g.
+     to some task T and some performance on T, improved with experience E  
 
-     G-mail spam filter robot classifies the spam and non-spam emails (T) automatically.
+     e.g. G-mail spam filter robot classifies the spam and non-spam emails (T) automatically.
+
        its E is whether the users label some specific emails are spam or not.
+
        its P is the number of fraction of emails correctly classified as spams or
        not spams.
 **** The main machine learning algorithms:
@@ -96,9 +99,10 @@ ranges of machine learning applications:
 
      [[file:r/0010.jpg]]
      [[file:r/0011.jpg]]
+
      (the car keep trying to predict continueous values of steering directions
      to drive itself)
-**** Classification(logistic Regression)
+**** Classification (logistic Regression)
 
      To predict the *discrete value* based on the training set
      E.g.
@@ -111,11 +115,11 @@ ranges of machine learning applications:
 
      Tips: in some questions, the discrete values may more than 2
      categories e.g. magnigetn1, magnigetn2, magnigtn3 .., benign
-     (Multi-class classification).
-     And may be more than 2 features (> 2-dimentions), e.g.considering
+       (*Multi-class classification*).
+     And may be more than 2 features (>= 2-dimentions). e.g.considering
      tumor position.. as well  and even maybe inifinit features in
      some examples (obviously, we don't have infinit memory to store 
-     this data), fortunally, the support of vector machine may give
+     this data). Fortunally, *the support of vector machine* may give
      some help.
      
 *** Unsupervised Learning Introduction Clustering Algorithm
