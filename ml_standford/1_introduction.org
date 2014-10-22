@@ -1,0 +1,186 @@
+
+* Introduction
+							   
+** Before the course
+
+The AI dream of someday building machines as intelligent as people.
+And many AI researchers believe the best one to towards that goal
+is through *learning algorithms mimic how the humans' brains learn*.
+Just knowing the algorithms and knowing the math *isn't enough* if
+u don't know how to actually get this stuff to work on problems. the
+ranges of machine learning applications:
+
++ Database mining
+
+  Large data-sets from growth of web are very useful to humans for analysis.
+  E.g:
+  1. Web Click Data
+
+     analyzing(machine learning)  web click data help those internet companies
+     know and serve the users better
+
+  2. Medical Records
+
+     Using machine learning to analyzing the records and turn them to medical
+     knowledge help human to know diseases better is increasing necessary in
+     medical field.
+
+  3. Computational Biology
+
+     Machine learning algorithms figure out what collected information about
+     the DNA sequences means to human.
+
+  4. Engineering field
+
+     architecture field is still unexplored so much :)
+
++ Applications which cant be programed by hand
+  
+  We cant program to solve problems but we could make robotic program
+  to learn how to solve the program by itself. E.g.
+  1. Autonomous helicopter
+
+    It's hard to program to drive a helicopter but we could make a computer
+    program to learn how to fly the helicopter by itself.
+
+  2. N-L-P (Nature Language Processing)
+  3. Computer Vision
+  4. Self-customizing programs
+    
+    E.g. Amazon product recommendations, the computer program learns and
+    customizes itself to specific customers based on their preferences.
+
+  5. Understanding human learning (brain, real AI)
+
+** What is machine learning?
+*** The old definition as 1959 by Arthur Samuel. 
+     Field of study that gives computers the ability to learn without being
+     explicitly programmed.
+
+     e.g. samuel built a checker program(robot) to play thousands of games  to "understand" what kind of boards to win or lose, and eventually learn how to play checker. Although Samuel was not a good a checker himself but his "robot" make him better checker.
+*** The modern definition by Tom Mitchell
+     A computer program is said to learn from experience E with the respect
+     to some task T and some performance on T, improved with experience E  
+
+     e.g. G-mail spam filter robot classifies the spam and non-spam emails (T) automatically.
+
+       its E is whether the users label some specific emails are spam or not.
+
+       its P is the number of fraction of emails correctly classified as spams or
+       not spams.
+*** The main machine learning algorithms:
+     + The main two types
+       1. Supervised learning
+       2. Unsupervised learning
+     + Others
+       1. Reinforcement learning
+       2. Recommend systems
+
+** Supervised Learning Introduction
+
+    Problem was provided with the so-called "right-answer-sample-data"
+    (term: trianing set) , supervised learning problem focus more on 
+    prediction by "learning" from training set.
+
+*** basic model about supervised learning
+**** notation
+     + training set
+
+       the "right answer collection" sample/dataset
+       i.g. the training set of the housing prices problem is the different
+            housing prices(right-answer) provided.
+     + m
+
+       Numbers of trainling examples
+
+     + x
+
+       imput
+
+     + y
+
+       output
+
+     + (x, y)
+       
+**** the working model 
+    i.e. the model for house prices problem:
+    
+     for learning algorithm implementtion we have basic procedure
+     1. define hypothesis function
+     2. define cost function of hypotheis
+     3. min cost function to get the "best" theta     
+     4. then we could do prediction using our hypothesis with the calculated "best" theta.
+
+
+*** Linear Regression 						    
+
+     To predict *the continuous values* based on the sample data , the so-called "right-answer"
+     (the saying continuous value here, I guess, is because what the prediction's value must be one value of some specific continuum)
+
+     E.g. The house prices sample:
+
+     [[file:r/0010.jpg]]
+
+     [[file:r/0011.jpg]]
+
+     The car keep trying to predict continueous values of steering directions
+     to drive itself
+*** Classification (logistic Regression)
+
+     To predict the *discrete value* based on the training set
+     E.g.
+
+     [[file:r/0030.jpg]]
+
+     In the example, algoritmn analyse and classify the datasets
+     into two types (magnigetn or benign), so we could predict a
+     specific user-provided data whether magnigetn or benign.
+
+     Tips: in some questions, the discrete values may more than 2
+     categories e.g. magnigetn1, magnigetn2, magnigtn3 .., benign
+       (*Multi-class classification*).
+     And may be more than 2 features (>= 2-dimentions). e.g.considering
+     tumor position.. as well  and even maybe inifinit features in
+     some examples (obviously, we don't have infinit memory to store 
+     this data). Fortunally, *the support of vector machine* may give
+     some help.
+     
+** Unsupervised Learning Introduction Clustering Algorithm
+
+    This is no any known categories provided in advance versus the
+    classification in supervised learning. Instead, the typical one
+    about unsupervised learning algorighm is to analyse the dataset
+    and divide them into different clusters. (i.e. try to find the
+    structure or inner category of the dataset hidding inside)
+    Let's see some examples in our life.
+     
+    + Group the same new from different source
+
+     #+CAPTION: A black cat stalking a spider
+     #+ATTR_HTML: :alt cat/spider image :title Action! :align right
+     
+      [[file:r/0040.jpg]]
+
+
+    + Cluster gene-block have different influences on human
+
+  
+      [[file:r/0050.jpg]]
+
+      
+    + Sounds seperation
+
+
+      [[file:r/0070.jpg]]
+
+
+    + More examples
+
+
+      [[file:r/0060.jpg]]
+
+    
+      
+
+
