@@ -149,3 +149,6 @@ ranges of machine learning applications:
     
       
 
+
+
+[[file:r/sample.pdf]]
