@@ -40,7 +40,7 @@ less(0, 1); // true
 
 I more prefer cc's way owning to its intuition.
 
-the lambda's parameters in csharp need no Type, that's because this lambda have to be  "reasonable" when they are being assigned  to a Delegate object, then those parameters and return value have their types. the lamba in c++ is straightforward since all parameters and return values are needed for lambda itself, so it could assigned to an "auto" anoymous type variable, and we could assign an lambda to a method template' s parameter as:
+the lambda's parameters in csharp need no Type, that's because those lambdas have to be "reasonable" when they are being assigned to a Delegate object, then those parameters and return value have their types. the lamba in c++ is straightforward since all parameters and return values are needed for lambda itself, so it could assigned to an "auto" anoymous type variable, and we could assign an lambda to a method template' s parameter as:
 
 #+begin_src c++
 template<class T>
@@ -48,26 +48,10 @@ void foo(T cmp){
   cout << cmp(2,3) << endl; // error in csharp
 }
 
-main(){
-  auto _cmp = [](const int a, const int b) {return a > b;};
-  foo(_cmp);
-  return 0;
-}
-#+end_src
-
-
-#+begin_src c++
-template<class T>
-void foo(T cmp){
-  cout << cmp(2,3) << endl; // error in csharp
-}
-
-int main(int argc, char *argv[])
-{
+int main(){
   auto _cmp = [](const int a, const int b) {return a < b;};
-  bar(_cmp);
   foo(_cmp);
-  return 0;
+  return 1;
 }
 #+end_src
 
