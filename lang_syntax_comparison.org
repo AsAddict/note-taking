@@ -64,7 +64,8 @@ int main(){
 ** concurrency & multi-thread in clojure
 * Clojure && Python
 ** keyword arguments
-Arameters with default value or non-default value , and could avoid forcing the arguments order when calling function.
+arguments with default value or non-default value ,and could avoid forcing the arguments order when calling function or just pass some real arguments to some
+spcific arguments optionally.
 
 + Python is born supporting keyword arguments
 #+begin_src python
