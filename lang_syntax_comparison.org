@@ -15,7 +15,7 @@ prohibition for parentheses for lambda paramters in python.
 and it seems to be only one statement in python..
 #+begin_src python :results ouput
 less = lambda t1, t2: t1.mAttr < t2.mAttr
-less(0, 1) #true
+less(0, 1) # true
 #+end_src
 
 + reasonable cc lambda
