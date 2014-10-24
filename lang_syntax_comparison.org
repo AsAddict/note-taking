@@ -5,32 +5,42 @@ map in cc
 ** lamba
 clojure and python are both weak-type lang.
 
++ clojure simple but powerful :-)
 #+begin_src clojure
-(def cmp #( (.mAttr %1) <(.mAttr %2) ))
+(def less #(% < %2))
 #+end_src
 
++ python expression limitation
 prohibition for parentheses for lambda paramters in python.
 and it seems to be only one statement in python..
 #+begin_src python :results ouput
-cmp = lambda t1, t2: t1.mAttr < t2.mAttr
+less = lambda t1, t2: t1.mAttr < t2.mAttr
+less(0, 1) #true
 #+end_src
 
++ reasonable cc lambda
+We just need instantilate the "function" class' template for supplying the return type and parameters type then this lambda's type is ready to go!
 #+begin_src c++
-auto _cmp = [](const Type_A a, const Type_B b) {return a.mAttr < b.mAttr;};
-function<int (int, int)> _cmp = [](const int a, const int b) {return a < b;};
+function <bool (const int, const int)> less = [](const int, const int) {retrun a < b;};
+cmp(3, 4); //true
 #+end_src
 
-#+begin_src java
-delegate bool Del_Cmp<T1, T2> (T1 t1, T2 t2);
-Del_Cmp <A_Type, B_Type> del = (t1, t2) => t1.mAttr < t2.mAttr;
++ csharp lambda
+First we need to define a new delagate type(or just use the builtin deltegates) for the function'info, and we could employ generic tech there.
+#+begin_src csharp
+delegate bool CompareTwo<T1, T2> (T1 t1, T2 t2);
+CompareTwo<int, int> less = (t1, t2) => t1 < t2;
+less(0, 1); // true
+
+// avoid generic should be totally fine
+delegate bool CompareTwoInt (int t1, int t2);
+CompareTwoInt less = (t1, t2) => t1 < t2;
+less(0, 1); // true
 #+end_src
 
-the lambda's parameters in csharp need no Type, that's because this lambda 
-have to be  "reasonable" when they are being assigned  to a Delegate
-object, then those parameters and return value have their types.
-the lamba in c++ is straightforward since all parameters and return values are
-needed for lambda itself, so it could assigned to an "auto" anoymous type variable,
-and we could assign an lambda to a method template' s parameter as:
+I more prefer cc's way owning to its intuition.
+
+the lambda's parameters in csharp need no Type, that's because this lambda have to be  "reasonable" when they are being assigned  to a Delegate object, then those parameters and return value have their types. the lamba in c++ is straightforward since all parameters and return values are needed for lambda itself, so it could assigned to an "auto" anoymous type variable, and we could assign an lambda to a method template' s parameter as:
 
 #+begin_src c++
 template<class T>
@@ -40,7 +50,6 @@ void foo(T cmp){
 
 main(){
   auto _cmp = [](const int a, const int b) {return a > b;};
-  bar(_cmp);
   foo(_cmp);
   return 0;
 }
