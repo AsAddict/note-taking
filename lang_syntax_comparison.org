@@ -63,28 +63,33 @@ int main(){
 **** clojure     
 ** concurrency & multi-thread in clojure
 * Clojure && Python
-** keyword parameter
-Arameters with default value, and could avoid forcing the arguments
-order when calling function.
+** keyword arguments
+Arameters with default value or non-default value , and could avoid forcing the arguments order when calling function.
 
-Python is born supporting keyword parameter
++ Python is born supporting keyword arguments
 #+begin_src python
-## parameters with default values have to be listed last.
-def make_user(username, join_date, email = "default@email.com"):
+## parameters with default values have to be listed last as well as the conventions in cc / csharp
+def make_user(username, join_date = time.ctime(), email = "default@email.com"):
     return {'username':username, 'email':email, 'join-date':join_date}
-#+end_src
 
-Some tricks could help clojure has keyword parameter as python does.
+make_user("boddy", email = "boddy@hotmail.com") # we pass real argument "email" but leave join_date to be default value ("jump" over it)
+#+end_src
+maybe u are also interested in so-called keyword-only arguments in python
+
++ Some tricks could help clojure has keyword parameter as python does.
 #+begin_src clojure
 ;; rest even elems in vector could be treated as dict when using dict unpacking
 (defn make-user
   [user-name & {:keys [email join-date] :or {join-date (java.util.Date.)
                                              email "default@email.com"}}]
-  {:user-name user-name :emal email :join-date join-date}
-  )
+  {:user-name user-name :emal email :join-date join-date})
 (make-user "bobby" :email "642772378@qq.com")
 (make-user "tom")
 #+end_src
+
+
+
+
 
 ** Python's generator and Clojure's lazy-seq
    Lazy-seq in clojure store datas on the fly as python's generator does,
