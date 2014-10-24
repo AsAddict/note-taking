@@ -1,0 +1,121 @@
+* Cloure && Python && Csharp && Cc && Perl
+** builtin container
+*** association container
+map in cc
+** lamba
+clojure and python are both weak-type lang.
+
+#+begin_src clojure
+(def cmp #( (.mAttr %1) <(.mAttr %2) ))
+#+end_src
+
+prohibition for parentheses for lambda paramters in python.
+and it seems to be only one statement in python..
+#+begin_src python :results ouput
+cmp = lambda t1, t2: t1.mAttr < t2.mAttr
+#+end_src
+
+#+begin_src c++
+auto _cmp = [](const Type_A a, const Type_B b) {return a.mAttr < b.mAttr;};
+function<int (int, int)> _cmp = [](const int a, const int b) {return a < b;};
+#+end_src
+
+#+begin_src java
+delegate bool Del_Cmp<T1, T2> (T1 t1, T2 t2);
+Del_Cmp <A_Type, B_Type> del = (t1, t2) => t1.mAttr < t2.mAttr;
+#+end_src
+
+the lambda's parameters in csharp need no Type, that's because this lambda 
+have to be  "reasonable" when they are being assigned  to a Delegate
+object, then those parameters and return value have their types.
+the lamba in c++ is straightforward since all parameters and return values are
+needed for lambda itself, so it could assigned to an "auto" anoymous type variable,
+and we could assign an lambda to a method template' s parameter as:
+
+#+begin_src c++
+template<class T>
+void foo(T cmp){
+  cout << cmp(2,3) << endl; // error in csharp
+}
+
+main(){
+  auto _cmp = [](const int a, const int b) {return a > b;};
+  bar(_cmp);
+  foo(_cmp);
+  return 0;
+}
+#+end_src
+
+
+#+begin_src c++
+template<class T>
+void foo(T cmp){
+  cout << cmp(2,3) << endl; // error in csharp
+}
+
+int main(int argc, char *argv[])
+{
+  auto _cmp = [](const int a, const int b) {return a < b;};
+  bar(_cmp);
+  foo(_cmp);
+  return 0;
+}
+#+end_src
+
+** linear container implementation
+*** notations   
+    + Linear container
+      Vector (implemented by array for linear data structure)
+      List (implemented by linked list for linear data structure)
+**** clojure     
+** concurrency & multi-thread in clojure
+* Clojure && Python
+** keyword parameter
+Arameters with default value, and could avoid forcing the arguments
+order when calling function.
+
+Python is born supporting keyword parameter
+#+begin_src python
+## parameters with default values have to be listed last.
+def make_user(username, join_date, email = "default@email.com"):
+    return {'username':username, 'email':email, 'join-date':join_date}
+#+end_src
+
+Some tricks could help clojure has keyword parameter as python does.
+#+begin_src clojure
+;; rest even elems in vector could be treated as dict when using dict unpacking
+(defn make-user
+  [user-name & {:keys [email join-date] :or {join-date (java.util.Date.)
+                                             email "default@email.com"}}]
+  {:user-name user-name :emal email :join-date join-date}
+  )
+(make-user "bobby" :email "642772378@qq.com")
+(make-user "tom")
+#+end_src
+
+** Python's generator and Clojure's lazy-seq
+   Lazy-seq in clojure store datas on the fly as python's generator does,
+   but python's generator just could be consumed once versus lazy-seq could
+   be consumed unlimitly but maintains the first consumed values.
+   
+   e.g. unlimit sequence of rand-ints
+   #+begin_src clojure
+   (defn rand-ints
+     [limit]
+     (lazy-seq (cons (rand-int limit) (rand-ints limit))))
+   #+end_src
+
+   #+begin_src python
+   import random
+   def rand_ints(limit):
+       yield random.randint(0, limit)
+       for _i in rand_ints(limit):
+           yield _i
+   #+end_src
+
+   Notice that in clojure it's much easier get n from such sequence with
+   "take macro" versus in python it's trivial to finish same functionality.
+
+   
+   
+   
