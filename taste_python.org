@@ -1,0 +1,672 @@
+* Python Tricks
+** Define dict							      :drill:
+   :PROPERTIES:
+   :ID:       888B10BB-B2DA-44BB-AA9F-EF645409BC1A
+   :END:
+4 ways to define dict
+*** Answer
+#+BEGIN_SRC python :results output
+a = dict(one=1, two=2, three=3)
+b = {'one': 1, 'two': 2, 'three': 3}
+c = dict(zip(['one', 'two', 'three'], [1, 2, 3]))
+d = dict([('two', 2), ('one', 1), ('three', 3)])
+e = dict({'three': 3, 'one': 1, 'two': 2})
+print(a == b == c == d == e)
+#+END_SRC
+#+RESULTS:
+True   
+** Enumerator							      :drill:
+   :PROPERTIES:
+   :ID:       80E13BB4-5C1D-4847-8507-5237464D0DE2
+   :DRILL_LAST_INTERVAL: 0.0
+   :DRILL_REPEATS_SINCE_FAIL: 0
+   :DRILL_TOTAL_REPEATS: 0
+   :DRILL_FAILURE_COUNT: 1
+   :DRILL_AVERAGE_QUALITY: 1.0
+   :DRILL_EASE: 1.272
+   :DRILL_LAST_QUALITY: 1
+   :DRILL_LAST_REVIEWED: <2014-08-12 Tue 00:33>
+   :END:
+Enumerator help get the index of your collections
+*** Answer
+#+BEGIN_SRC python :results output
+l = [100, 3, 20, 44, 120]
+for (index , item ) in enumerate(l):
+    print(index, item, sep=':')
+print('alternate solution')
+for index in range (len(l)):
+    print (index,l[index],sep=":")
+#+END_SRC
+#+RESULTS:
+#+begin_example
+0:100
+1:3
+2:20
+3:44
+4:120
+alternate solution
+0:100
+1:3
+2:20
+3:44
+4:120
+#+end_example
+
+** Unpacking 							      :drill:
+   :PROPERTIES:
+   :ID:       9E8E3217-AF45-43E9-B1EA-10213A5E7ADA
+   :END:
+Unpacking sample:
+*** Answer
+#+BEGIN_SRC python :results output
+first, *rest = (3, 4, 4, 5, 2)
+# rest is vector, [4, 4, 5, 2]
+def foo_func(*arg, **kw):
+    print("arg:", arg)
+    print("kw:", kw)
+foo_func(3, "fo", 6, arg1=1, arg2=2, arg3=3)
+
+def first_and_last(sequence):
+    first, *mid, last = sequence
+    # mid is useless , so *_ is more appropriat
+    return first, last
+
+def do_foo(x, y):
+     print("foo", x, y)
+do_foo(*[1, 2])
+# [1, 2] will be unpacking to x and y accordingly    
+# A sample which uses recurse to implement the sum function
+items = [2, 3, 5, 9]
+def sum (items):
+    head, *tail = items
+    return head + sum(tail) if tail else head
+print('sum = ', sum(items))
+#+END_SRC
+#+RESULTS:
+: arg: (3, 'fo', 6)
+: kw: {'arg3': 3, 'arg2': 2, 'arg1': 1}
+: foo 1 2
+: sum =  19
+
+** Iteration (the enumerator is csharp)
+*** tags					     :python_iteration:
+*** the principles to make sth iterable 			      :drill:
+    :PROPERTIES:
+    :ID:       85E1FE61-7E5D-4F2B-ACA4-B076741358C7
+    :END:
+Understand two ways to implement iterable object in python, 
+Try to use class way to implement Fib series.
+**** Answer
+#+BEGIN_SRC python :results output
+# first method: implement _getitem_(self, index) 
+# for the interation interface
+class IterFoo:
+    def __init__(self):
+        self.data = [1, 2, 3, 4]
+    def __getitem__(self, index):
+        return self.data[index]
+print ('__getitem__')
+for i in IterFoo():
+    print(i)
+  
+# second method: implement __iter__(self) __next__(self)
+# for the interation interface
+class Fib:   
+    def __init__(self, n):
+        self.limit = n
+        self.f = 0
+        self.n = 1
+        self.count = 0
+    def __iter__(self):
+        return self
+    def __next__(self):
+        if self.count < self.limit:
+            self.count += 1
+            if self.count == 1:
+                return self.f
+            a = self.f
+            self.f, self.n = self.n, a + self.n
+            return self.n
+        else:
+            raise StopIteration # neccessary raise
+print ('__iter__|__next__')
+for i in Fib(5):
+    print(i)
+    
+
+#+END_SRC
+
+#+begin_src clojure
+
+#+end_src
+
+#+RESULTS:
+#+begin_example
+__getitem__
+1
+2
+3
+4
+__iter__|__next__
+0
+1
+2
+3
+5
+#+end_example
+
+*** dict as a iterator in python				      :drill:
+    :PROPERTIES:
+    :ID:       6C37AE57-A441-41BC-93F1-C9698B0B636E
+    :END:
+An often easily overlooked points about dict's next()
+**** Dict's next() refers to its "key" in interation
+#+BEGIN_SRC python :results python
+# dict is also a iterator in python, iter(some_dict) will
+# return its iterator, but next(iter(some_dict)) will just
+# return some_dict's keyword str without any info about the
+# values, so in for item in some_dict , the item is just the
+# keyword, and any iterator operation method deals with the
+# dict's keyword as the item. e.g.
+
+min(some_dict, key = lambda keyword: some_dict[key])
+# return jsut the key which maps the "minimal" value 
+
+# some daily builtin method of dict
+dict.items() # return (key, value) iterator
+dict.keys() # return key iterator
+dict.values # return value iterator
+#+END_SRC
+
+** Generation
+*** tags 						  :python_generation:
+lazy-sequence in clojure, yield in csharp ,I deduce, story on the fly too.
+The two ways to make generator in python:
+1. list comprehension with using () rather than []
+ex. (i * 30 for i in list if i > 10) is a generator
+2. yield mechanism
+*** The generator VS the iterator				      :drill:
+    :PROPERTIES:
+    :ID:       E26B17FE-F92B-4721-88A4-A2101E984964
+    :DRILL_LAST_INTERVAL: 0.0
+    :DRILL_REPEATS_SINCE_FAIL: 0
+    :DRILL_TOTAL_REPEATS: 0
+    :DRILL_FAILURE_COUNT: 1
+    :DRILL_AVERAGE_QUALITY: 1.0
+    :DRILL_EASE: 1.272
+    :DRILL_LAST_QUALITY: 1
+    :DRILL_LAST_REVIEWED: <2014-08-12 Tue 00:35>
+    :END:
+the generator actually belongs to iterator
+but what the difference betweeen them
+
+**** Answer
+|                           | generator                          | iteartor                          |
+|---------------------------+------------------------------------+-----------------------------------|
+| memory storation?         | on the fly (generate each at once) | total store in memory             |
+| iteration times?          | just one time                      | any times                         |
+| state-maintaining control | less                               | more (controlable state in class) |
+|                           |                                    |                                   |
+if you need more state-maintaining control or expose some extra methods of 
+the iteration e.g.. then you may try the more powerful one - iterator
+#+BEGIN_SRC python
+def current(self):
+    return self.start
+#+END_SRC 
+a classsic example of using yield to unpaking all nested [] or ()
+#+BEGIN_SRC python :results output
+l = [0,1,[8,9,[33,23],19],4]
+def recurse(l):
+    for elm in l:
+        if not isinstance(elm, (list, tuple)):
+            yield elm
+        else:
+            for e in recurse(elm):
+                yield e
+print([i for i in recurse(l)])
+#+END_SRC
+#+RESULTS:
+: [0, 1, 8, 9, 33, 23, 19, 4]
+
+** Keeping the n last items					      :drill:
+   :PROPERTIES:
+   :ID:       24C48208-4A86-4433-9E64-E195E0DA1DB7
+   :END:
+I need a function searching some text(e.g. "python") and return 
+its line and its previous 5 lines as well.
+*** Answer
+#+BEGIN_SRC python
+from collections import deque
+buffer = deque(maxlen = 3)
+# append / appendleft
+buffer.append(1) 
+buffer.append(2)
+buffer.append(3)
+buffer.pop() 
+buffer.popleft()
+#+END_SRC
+/Tips: u should certain that pop or append operation of deque has only 
+O(1) complextion, but to array list has O(n) complextion/
+a classic example of using deque: search some pattern  in a file and 
+then print its privious n lines, so u have to keep the n last items.
+/Tips: yield l, buffer is a classical use in python return value could 
+not be alone in python/
+#+BEGIN_SRC python :results output
+from collections import deque
+def search_pattern(path, pattern, pre_lines_num):
+    buffer = deque(maxlen = pre_lines_num)
+    with open(path) as lines:
+        for l in lines:
+            buffer.append(l)
+            if pattern in l:
+                yield l, buffer
+for line, pre_lines in search_pattern("empty.txt", "independent", 3):
+    print('*' * 68)
+    for l in pre_lines:            
+        print(l)
+    print('*' * 68)
+#+END_SRC
+#+RESULTS:
+
+** Finding the largest/smarllest n items
+*** using heap sort items					      :drill:
+    :PROPERTIES:
+    :ID:       E008A811-0718-4FBA-9FB6-E8578F9C8A99
+    :END:
+    :PROPERITES:
+    :ID:       2BDD7E7C-EDEA-42AA-9B1B-8E51BF24A89E
+    :END:
+Undersand heapsort and common sort then retrieve the top 3 largest prices
+among these tokens by heapq
+**** Answer
+1. Heap is a sorting data structure in python and other languages
+   e.g. in python. 
+2. It requires O(logn) to "pop" a smallest item of heqpq.
+3. The nlargest() and nsmallest() functions are most appropriate
+   when you are trying to find a relatively small number of items. 
+   if you are simply trying to find the single smallest or largest
+   item (N=1), it is faster to use min() and max(). Similarly, 
+   if N is about the same size as the collection itself, it is 
+   usually faster to sort it first and take a slice 
+   (i.e., use sorted(items)[:N] or sorted(items)[-N:]). 
+   It should be noted that the actual implementation of nlargest() 
+   and nsmallest() is adaptive in how it operates and will carry 
+   out some of these optimizations on your behalf 
+   (e.g., using sorting if N is close to the same size as the input). 
+4. python's heap module always deal with outer list provided with user
+   rather than  maintain a local one inside (heapq.heapify(list), 
+   heapq.heappush(list, item) *item should be ordable*)
+
+#+BEGIN_SRC python :results output
+import heapq
+portfolios = [
+    {'name': 'IBM', 'shares': 100, 'price': 91.1},
+    {'name': 'AAPL', 'shares': 50, 'price': 543.22},
+    {'name': 'FB', 'shares': 200, 'price': 21.09},
+    {'name': 'HPQ', 'shares': 35, 'price': 31.75},
+    {'name': 'YHOO', 'shares': 45, 'price': 16.35},
+    {'name': 'ACME', 'shares': 75, 'price': 115.65}
+]
+# nlargest/nsmallest return ds list
+most_three_expenses = heapq.nlargest(3, portfolios, lambda item: 
+item['price'])
+most_three_cheapest = heapq.nsmallest(3, portfolios, lambda item: 
+item['price'])
+print('most_three_expenses:\n', most_three_expenses)
+print('most_three_cheapest:\n', most_three_cheapest)
+# about the implemention: 
+# transform the unsorted
+# as we know the first one of heap
+# is alway the smallest item
+print('\nheapq sort testing: ')
+unsorted = [2, 4, 1, -1, 5, 10] /
+heapq.heapify(unsorted)
+# unsorted now is a heap, 
+# arg must be a list type
+
+# pop the smallest one off the heap and adjust the heap
+print(unsorted)
+# its complexion goes to O(logn)
+print(heapq.heappop(unsorted) )
+print(unsorted)
+
+# how about getting the min/max item in price in this data structure
+
+# the first method: min(iterable, key = func), it's just a list
+print('pure min: ', min(portfolios, key = lambda item: item['price']))
+
+# the second method : return the first item of heapq.nsmallest() , not nature right?
+
+#+END_SRC
+#+RESULTS:
+#+begin_example
+most_three_expenses:
+ [{'price': 543.22, 'shares': 50, 'name': 'AAPL'}, {'price': 115.65, 'shares': 75, 'name': 'ACME'}, {'price': 91.1, 'shares': 100, 'name': 'IBM'}]
+most_three_cheapest:
+ [{'price': 16.35, 'shares': 45, 'name': 'YHOO'}, {'price': 21.09, 'shares': 200, 'name': 'FB'}, {'price': 31.75, 'shares': 35, 'name': 'HPQ'}]
+heapq sort testing: 
+[-1, 2, 1, 4, 5, 10]
+-1
+[1, 2, 10, 4, 5]
+pure min:  {'price': 16.35, 'shares': 45, 'name': 'YHOO'}
+#+end_example
+
+** Implement a priority queue					      :drill:
+   SCHEDULED: <2014-08-14 Thu>
+   :PROPERTIES:
+   :ID:       8F2247CF-30D5-4499-A45A-612FAE05D1FE
+   :DRILL_LAST_INTERVAL: 2.3472
+   :DRILL_REPEATS_SINCE_FAIL: 1
+   :DRILL_TOTAL_REPEATS: 1
+   :DRILL_FAILURE_COUNT: 1
+   :DRILL_AVERAGE_QUALITY: 3.0
+   :DRILL_EASE: 2.456
+   :DRILL_LAST_QUALITY: 3
+   :DRILL_LAST_REVIEWED: <2014-08-12 Tue 00:58>
+   :END:
+   the suitable way to make a priority queue is based on the heap sort
+   time complexion of max-min heap for inserting or removing item takes
+   O(log(N)) is superior than that of other sorting data structure.
+
+*** Answer
+Sample Code:
+#+BEGIN_SRC python :results output
+import heapq
+class PriorityQueue:
+    def __init__(self):
+         self._heap = []
+
+    def pop(self):
+        return heapq.heappop(self._heap)[-1]
+
+    def push(self, item, id, priority):
+        # heapush maintains the first arg(list type) as minimal heap
+        heapq.heappush(self._heap, (-priority, id, item))  
+
+class Task:
+    def __init__(self, name, id):
+        self._name = name
+        self.id = id
+        
+    def __repr__(self):
+        return "{!a}".format((self._name, self.id))
+
+
+tasks = PriorityQueue()
+t1 = Task('foo', 0)
+t2 = Task('bar', 1)
+t3 = Task('xfc', 2)
+tasks.push(t1, t1.id, 10)
+tasks.push(t2, t2.id, 100)  # highest priority
+tasks.push(t3, t3.id, 5)
+print('highest priority of task is ', tasks.pop())
+#+END_SRC
+
+#+RESULTS:
+: highest priority of task is  ('bar', 1)
+   
+** Grouping the keys to multiple values in a dict		      :drill:
+   :PROPERTIES:
+   :ID:       CCD8C6B7-9E16-4960-9BCF-BA3340170D3B
+   :END:
+some code like that is trivial
+#+BEGIN_SRC python
+pairs = (('a', 1), ('b', 3), ('a', 2), ('b', 7))
+adict = {}
+for k, v in pairs:
+   if k not in adict.keys():
+        adict[k] = []
+    adict[k].append(v)
+#+end_src
+*** Answer
+#+begin_src python
+from collections import defaultdict
+# The default factory is called without arguments to produce
+# a new value when a key is not present, in __getitem__ only.
+# __getitem__ = [key/index]
+# e.g. gdict['k1'] or gdict.__getitem__('k1'), then 'k1' -> []
+# will be created automatically if k1 is not keys
+
+bdict = defaultdict(list)
+for k, v in pairs:
+    bdict[k].append(v) # i
+
+
+# D.setdefault(k[,d]) -> D.get(k,d), also set D[k]=d if k not in D
+cdict = dict()
+for k, v in pairs:
+    cdict.setdefault(k, []).append(v)
+
+print (adict == bdict == cdict)
+# D.get(k[,d]) -> D[k] if k in D, else d.  d defaults to None.
+#+END_SRC
+
+#+RESULTS:
+: True
+
+** Keeping the dict's order as the inserting order		      :drill:
+   :PROPERTIES:
+   :ID:       A5EDB89F-52D7-45AF-AC42-543862790C1A
+   :END:
+As default situation, the dict' order is not equivalent to the inserting order because
+dict is implement by hashtable.
+#+BEGIN_SRC python :results output
+_dict = {}
+_dict['foo'] = 1
+_dict['bar'] = 2
+_dict['kee'] = 3
+print('not as the inserting order: ', _dict)
+#+END_SRC
+
+*** Answer
+tips: OrderedDict maintain a extra link-list of keys to keep track of the
+inserting order. So u should balance if the benefits of OrderDict outweigh
+the extra memory overhead.
+#+begin_src python
+from collections import OrderedDict
+_dict = OrderedDict()
+_dict['foo'] = 1
+_dict['bar'] = 2
+_dict['kee'] = 3
+print('as the inserting order: ', _dict)
+#+END_SRC
+#+RESULTS:
+: not as the inserting order:  {'kee': 3, 'bar': 2, 'foo': 1}
+: as the inserting order:  OrderedDict([('foo', 1), ('bar', 2), ('kee', 3)])
+
+** Removeing the duplicates from a sequence while maintaining order
+Before the solution, as we known, set is implemented by hash_table in python
+, so item sorting in emacs is unsupported as opposed to stl/set. 
+
+#+begin_src python
+def dedupe(items):
+    seen = set()
+    for _i in items:
+        if _i not in seen:
+            yield _i
+            seen.add(_i)
+#+end_src
+
+It works only when items in the sequences are hashable, if u are trying to 
+eliminate sequences containing unhashable items(e.g. dict), a little change 
+could be taken on previous implementation:
+
+#+begin_src python
+def dedupe(items, key = None):
+    seen = set()
+    for _i in items:
+        if (_i if key == None else key(_i)) not in seen:
+            yield _i
+            seen.add(_i)            
+#+end_src
+tips: in ipython , ipython will automatically sort the keys of the set when "output"
+the set. a litttle odd there.
+
+** Make it indexable						      :drill:
+   :PROPERTIES:
+   :ID:       2C5ED988-5F1A-435C-99D4-36DC6C81971C
+   :END:
+:)
+*** Answer
+need to define the __getitem__() method
+#+begin_src python :results output
+class indexable:
+    def __init__(self, data):
+        self.data = data
+    def __getitem__(self, index):
+        return self.data[index]
+    def __lt__(self,b):
+        return len(self.data) > len(b.data)
+test = indexable([1,2,3,4])
+print(test[1])
+
+a = indexable([1,2])
+b = indexable([3,5,6])
+
+#+end_src
+
+#+RESULTS:
+: 2
+
+** Implementing a simple graph structure			      :drill:
+   :PROPERTIES:
+   :ID:       A01A9D33-5D41-4941-807B-3F4EC1F25778
+   :
+Implement by dict
+*** Answer
+#+begin_src python :results output
+import copy
+class Graph:
+      def __init__(self, _dict, _directed):
+            self.data = {}
+            self.data = copy.deepcopy(_dict)
+            self.directed = _directed
+            if not self.directed: # undirected graph
+                  for _key in _dict.keys():
+                        for (_value, _weight) in _dict[_key].items():
+                              self.add_edge(_value, _key, _weight)
+
+      def add_edge(self, _from, _end, _weight):
+            self.data.setdefault(_from, {})[_end] = _weight
+            if not self.directed:
+                  self.data.setdefault(_end, {})[_from] = _weight
+
+      def get_nodes(self):
+            _nodes = set(self.data.keys())
+            if self.directed:
+                  for _key in self.data.keys():
+                        for (_value, _weight) in self.data[_key].items():
+                              _nodes.add(_value)
+            return _nodes
+
+#+end_src
+** Naming slice
+#+begin_src python :results output
+_slice = slice(1,3)
+data = [0,1,2,3,4]
+print(data[_slice])
+#+end_src
+#+RESULTS:
+: [1, 2]
+   
+** Determine the most frequently occuring items in a sequence	      :drill:
+   :PROPERTIES:
+   :ID:       33AC6513-CE24-4085-AE31-F6344EB35CA1
+   :END:
+
+#+begin_src python :results output
+from collections import Counter
+words = [
+   'look', 'into', 'my', 'eyes', 'look', 'into', 'my', 'eyes',
+   'the', 'eyes', 'the', 'eyes', 'the', 'eyes', 'not', 'around', 'the',
+   'eyes', "don't", 'look', 'around', 'the', 'eyes', 'look', 'into',
+   'my', 'eyes', "you're", 'under'
+]
+#+end_src
+
+*** Answer
+#+begin_src python
+words_counter = Counter(words)
+print(words_counter)
+top3 = words_counter.most_common(3)
+print(top3)
+#+end_src
+
+#+RESULTS:
+: Counter({'eyes': 8, 'the': 5, 'look': 4, 'into': 3, 'my': 3, 'around': 2, 'not': 1, "you're": 1, 'under': 1, "don't": 1})
+: [('eyes', 8), ('the', 5), ('look', 4)]     
+
+** Sort items by the inner property				      :drill:
+   :PROPERTIES:
+   :ID:       807B5D82-3209-424E-A4CD-0D89DC344E09
+   :DRILL_LAST_INTERVAL: 0.0
+   :DRILL_REPEATS_SINCE_FAIL: 0
+   :DRILL_TOTAL_REPEATS: 0
+   :DRILL_FAILURE_COUNT: 2
+   :DRILL_AVERAGE_QUALITY: 1.0
+   :DRILL_EASE: 1.272
+   :DRILL_LAST_QUALITY: 1
+   :DRILL_LAST_REVIEWED: <2014-08-12 Tue 00:33>
+   :END:
+Sort by the 'fname' or 'uid' or other "column" in clojure and python
+#+begin_src python :resutls outpt
+rows = [
+    {'fname': 'Brian', 'lname': 'Jones', 'uid': 1003},
+    {'fname': 'David', 'lname': 'Beazley', 'uid': 1002},
+    {'fname': 'John', 'lname': 'Cleese', 'uid': 1001},
+    {'fname': 'Big', 'lname': 'Jones', 'uid': 1004}
+   ]
+
+(def rows
+  [{'fname' 'Brian', 'lname' 'Jones', 'uid' 1003},
+    {'fname' 'David', 'lname' 'Beazley', 'uid' 1002},
+    {'fname' 'John', 'lname' 'Cleese', 'uid' 1001},
+    {'fname' 'Big', 'lname' 'Jones', 'uid' 1004}])
+#+end_src
+
+#+RESULTS:
+: [{'lname': 'Cleese', 'uid': 1001, 'fname': 'John'},
+: {'lname': 'Beazley', 'uid': 1002, 'fname': 'David'},
+: {'lname': 'Jones', 'uid': 1003, 'fname': 'Brian'},
+: {'lname': 'Jones', 'uid': 1004, 'fname': 'Big'}]
+
+*** Answer
+#+begin_src python :results output
+from operator import itemgetter
+uid_getter = itemgetter('uid')
+uid_sort = sorted(rows, key = lambda row: uid_getter(row))   
+# uid_sort = sorted(rows, key = lambda item:item['uid'])  hard-code way
+print(uid_sort)
+#+end_src
+
+#+begin_src clojure
+(sort #(< ('uid' %) ('uid' %2)) rows) ;; how to compare string in clojure
+#+end_src
+
+** Sort objects without native comparison support 		      :drill:
+#+begin_src python
+
+class User:
+    def __init__(self, id):
+        self.id = id
+
+    def __repr__(self):
+        return "User{}".format(self.id)
+
+users = [User(1), User(20), User(3)]
+
+#+end_src
+
+*** Answer
+Works like where(user=>user.id) filter(user=>user.id > 1000) in csharp
+Just need the *key* item for filtering or sorting. when sorting , the 
+key we need is just id for each item. The second method employs attrgetter
+and lambda do the same to expose the key(id) for sorting.
+
+#+begin_src python
+users = sorted(users,key = lambda user: user.id)
+from operator import attrgetter
+print(sorted(users, key = attrgetter('id')))
+print(users)
+#+end_src
+

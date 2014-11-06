@@ -1,0 +1,46 @@
+** auctex on emacs
+** mactex 2.2G
+   the tex system on mac, it's located on */usr/local/texlive*
+** xquartz (x11 on mac)
+   for auctex-mode on emacs to view .tex 's output
+** auctex-mode for emacs 	   
+   dependencies : mactex, ghostscript
+   built the auctex-mode for emacs manually without el-get, 
+   based on the instruction here: http://www.emacswiki.org/emacs/AUCTeXonOSX
+*** unclear 							    :unclear:
+    inline-preview for tex file seems not working ("FILE NOT FOUND xx.aux)
+*** ghostscript 
+    for auctex
+*** cdlatex-mode
+    for quick inserting math template for auctex-mode
+    and org-cdlatex-mode(mirror) 
+** python3.2000
+   /usr/local/bin has a file named python, then installing a newer one giving up
+   overwrite this file which keeps directing to the old and unavailable file.
+   python3.2 seems stable for some other package
+*** pip
+    without pip3 installed , installed manually by getpip.py https://bootstrap.pypa.io/get-pip.py
+
+*** numpy, matplotlib
+
+*** jedi
+    sudo ~/.emacs.d/.python-environments/default/bin/pip /
+    install --upgrade ~/.emacs.d/el-get/jedi/
+** subversion   
+   installed by homebrew for emacs version control
+   
+** ac-octave
+   both el-get and package has the problem of "octave-inf" problem,
+   maybe emacs-minor-version wrong for my emacs version.
+   #+begin_src emacs-lisp
+   ;(if (and (>= emacs-major-version 24) (> emacs-minor-version 3))
+   ; (require 'octave)
+     ;; for emacs 24.3 or below
+   ; (require 'octave-inf))
+   (require 'octave)
+   #+end_src
+   ac-octave could work now with some strange problem:
+   Blocking call to accept-process-output with quit inhibited!!
+
+
+   

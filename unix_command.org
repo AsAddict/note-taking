@@ -1,0 +1,9 @@
+* command and package-command totor
+** cd $(brew --prefix)
+** du (-ks) 
+calculate the file size
+** brew
+   "brew versions" to check all the gits which refer to the lastest and older 
+   versions
+   
+** subversion 

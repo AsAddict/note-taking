@@ -1,0 +1,77 @@
+* clojure programming by Chas Emerick
+** Homoiconicity
+Clojure programs are written using clojure data structures that
+represent AST directly, which means when we are writing code,
+we are actually building the AST at the sametime.
+
+*** How repl works
+
+the raw implementation to mock how repl works
+#+begin_src clojure
+(defn embbed-repl
+  []
+  (println ">>>")
+  (flush)
+  (let [exp (read) value (eval exp)]
+    (when (not= value :quil)
+      (println value)
+      (recur))))
+#+end_src
+
+** Eval 
+   #+begin_src clojure
+   (eval 'some_variable)
+   #+end_src
+   evaluate the value of soem_variable
+   if some_variavble here are literas (numbers, string), will
+   return themselves.
+   Funciton's value turns its reference (#'namespace/function_name)
+   as well as the lambda(#'namespace/anonymous_name)
+   Remember that (eval foo) is always atomic, meaning that (eval (eval foo))
+   is equivalent to (eval foo).
+** Unpacking 
+
+*** vector unpacking
+#+begin_src clojure
+(let [[x _ _ [y z]] sample_vector] (+ x y z))
+(let [[x _ & rest] sample_vector])
+(let [[x _ :as orig_vector] sample_vector])
+#+end_src
+
+** Lambada VS Partial
+partial: takes a function f and fewer than the normal arguments to f,
+returns a fn that could be called with the rest args.
+
+lambda is a superset of partial, which means lambda could do all partial
+could do, but not the opposite .E.g.
+
+#+begin_src clojure
+;; finish the same functionality
+(let [partial-sample (partial filter number?) lambda-sample #(filter number? %)]
+  (println "i am calling the partial-sample:" (partial-sample ["a" 4 5]))
+  (println "i am calling the lambda-sample:" (lambda-sample ["a" 4 5])))
+
+
+;; lambda dont limit u to only define the default/initial arguments of the function.
+;; However partial couldnt do so.
+(#(filter % ["str" 4 5]) number?)  
+(#(filter % ["str" 4 5]) string?)  
+
+;; an interesting example
+
+(def partial_map_times (partial  map *))
+; so we could call partial_map_times with the additional args of map
+(partial_map_times [1 2 3] [1 2 3]) ; notice that maybe more than 2 args here
+
+;; our problem is how we implement such thing with lambda like:
+;; (lambda_map_times [1 2 3] [1 2 3] ... maybe more )
+;; since we basically have to refer the precise number of args in lambda
+
+(def lambda_map_times #(map * % %2)) ;; we may have more than 2 args
+
+;; one effective solution may drawn on "apply" and "&"
+(def lambda_map_times #(map * %&))
+(lambda_map_times [1 2 3][1 2 3][1 2 3]) ;; work for any arguments :)
+#+end_src
+
+
