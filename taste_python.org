@@ -1,10 +1,9 @@
-* Python Tricks
-** Define dict							      :drill:
+* Define dict 														  :drill:
    :PROPERTIES:
    :ID:       888B10BB-B2DA-44BB-AA9F-EF645409BC1A
    :END:
-4 ways to define dict
-*** Answer
+4 ways to define a dict
+* Answer
 #+BEGIN_SRC python :results output
 a = dict(one=1, two=2, three=3)
 b = {'one': 1, 'two': 2, 'three': 3}
@@ -14,8 +13,8 @@ e = dict({'three': 3, 'one': 1, 'two': 2})
 print(a == b == c == d == e)
 #+END_SRC
 #+RESULTS:
-True   
-** Enumerator							      :drill:
+True
+* Enumerator														  :drill:
    :PROPERTIES:
    :ID:       80E13BB4-5C1D-4847-8507-5237464D0DE2
    :DRILL_LAST_INTERVAL: 0.0
@@ -28,7 +27,7 @@ True
    :DRILL_LAST_REVIEWED: <2014-08-12 Tue 00:33>
    :END:
 Enumerator help get the index of your collections
-*** Answer
+** Answer
 #+BEGIN_SRC python :results output
 l = [100, 3, 20, 44, 120]
 for (index , item ) in enumerate(l):
@@ -52,12 +51,12 @@ alternate solution
 4:120
 #+end_example
 
-** Unpacking 							      :drill:
+* Unpacking															  :drill:
    :PROPERTIES:
    :ID:       9E8E3217-AF45-43E9-B1EA-10213A5E7ADA
    :END:
 Unpacking sample:
-*** Answer
+** Answer
 #+BEGIN_SRC python :results output
 first, *rest = (3, 4, 4, 5, 2)
 # rest is vector, [4, 4, 5, 2]
@@ -88,15 +87,15 @@ print('sum = ', sum(items))
 : foo 1 2
 : sum =  19
 
-** Iteration (the enumerator is csharp)
-*** tags					     :python_iteration:
-*** the principles to make sth iterable 			      :drill:
+* Iteration (the enumerator is csharp)
+** tags													   :python_iteration:
+** the principles to make sth iterable								  :drill:
     :PROPERTIES:
     :ID:       85E1FE61-7E5D-4F2B-ACA4-B076741358C7
     :END:
 Understand two ways to implement iterable object in python, 
 Try to use class way to implement Fib series.
-**** Answer
+*** Answer
 #+BEGIN_SRC python :results output
 # first method: implement _getitem_(self, index) 
 # for the interation interface
@@ -155,12 +154,12 @@ __iter__|__next__
 5
 #+end_example
 
-*** dict as a iterator in python				      :drill:
+** dict as a iterator in python										  :drill:
     :PROPERTIES:
     :ID:       6C37AE57-A441-41BC-93F1-C9698B0B636E
     :END:
 An often easily overlooked points about dict's next()
-**** Dict's next() refers to its "key" in interation
+*** Dict's next() refers to its "key" in interation
 #+BEGIN_SRC python :results python
 # dict is also a iterator in python, iter(some_dict) will
 # return its iterator, but next(iter(some_dict)) will just
@@ -178,14 +177,8 @@ dict.keys() # return key iterator
 dict.values # return value iterator
 #+END_SRC
 
-** Generation
-*** tags 						  :python_generation:
-lazy-sequence in clojure, yield in csharp ,I deduce, story on the fly too.
-The two ways to make generator in python:
-1. list comprehension with using () rather than []
-ex. (i * 30 for i in list if i > 10) is a generator
-2. yield mechanism
-*** The generator VS the iterator				      :drill:
+* Generation
+** The generator VS the iterator									  :drill:
     :PROPERTIES:
     :ID:       E26B17FE-F92B-4721-88A4-A2101E984964
     :DRILL_LAST_INTERVAL: 0.0
@@ -198,9 +191,9 @@ ex. (i * 30 for i in list if i > 10) is a generator
     :DRILL_LAST_REVIEWED: <2014-08-12 Tue 00:35>
     :END:
 the generator actually belongs to iterator
-but what the difference betweeen them
+qbut what the difference betweeen them
 
-**** Answer
+*** Answer
 |                           | generator                          | iteartor                          |
 |---------------------------+------------------------------------+-----------------------------------|
 | memory storation?         | on the fly (generate each at once) | total store in memory             |
@@ -228,13 +221,13 @@ print([i for i in recurse(l)])
 #+RESULTS:
 : [0, 1, 8, 9, 33, 23, 19, 4]
 
-** Keeping the n last items					      :drill:
+* Keeping the n last items											  :drill:
    :PROPERTIES:
    :ID:       24C48208-4A86-4433-9E64-E195E0DA1DB7
    :END:
 I need a function searching some text(e.g. "python") and return 
 its line and its previous 5 lines as well.
-*** Answer
+** Answer
 #+BEGIN_SRC python
 from collections import deque
 buffer = deque(maxlen = 3)
@@ -268,8 +261,8 @@ for line, pre_lines in search_pattern("empty.txt", "independent", 3):
 #+END_SRC
 #+RESULTS:
 
-** Finding the largest/smarllest n items
-*** using heap sort items					      :drill:
+* Finding the largest/smarllest n items
+** using heap sort items											  :drill:
     :PROPERTIES:
     :ID:       E008A811-0718-4FBA-9FB6-E8578F9C8A99
     :END:
@@ -278,7 +271,7 @@ for line, pre_lines in search_pattern("empty.txt", "independent", 3):
     :END:
 Undersand heapsort and common sort then retrieve the top 3 largest prices
 among these tokens by heapq
-**** Answer
+*** Answer
 1. Heap is a sorting data structure in python and other languages
    e.g. in python. 
 2. It requires O(logn) to "pop" a smallest item of heqpq.
@@ -351,24 +344,24 @@ heapq sort testing:
 pure min:  {'price': 16.35, 'shares': 45, 'name': 'YHOO'}
 #+end_example
 
-** Implement a priority queue					      :drill:
-   SCHEDULED: <2014-08-14 Thu>
-   :PROPERTIES:
-   :ID:       8F2247CF-30D5-4499-A45A-612FAE05D1FE
-   :DRILL_LAST_INTERVAL: 2.3472
-   :DRILL_REPEATS_SINCE_FAIL: 1
-   :DRILL_TOTAL_REPEATS: 1
-   :DRILL_FAILURE_COUNT: 1
-   :DRILL_AVERAGE_QUALITY: 3.0
-   :DRILL_EASE: 2.456
-   :DRILL_LAST_QUALITY: 3
-   :DRILL_LAST_REVIEWED: <2014-08-12 Tue 00:58>
-   :END:
-   the suitable way to make a priority queue is based on the heap sort
-   time complexion of max-min heap for inserting or removing item takes
-   O(log(N)) is superior than that of other sorting data structure.
+* Implement a priority queue										  :drill:
+  SCHEDULED: <2014-08-14 Thu>
+  :PROPERTIES:
+  :ID:       8F2247CF-30D5-4499-A45A-612FAE05D1FE
+  :DRILL_LAST_INTERVAL: 2.3472
+  :DRILL_REPEATS_SINCE_FAIL: 1
+  :DRILL_TOTAL_REPEATS: 1
+  :DRILL_FAILURE_COUNT: 1
+  :DRILL_AVERAGE_QUALITY: 3.0
+  :DRILL_EASE: 2.456
+  :DRILL_LAST_QUALITY: 3
+  :DRILL_LAST_REVIEWED: <2014-08-12 Tue 00:58>
+  :END:
+  the suitable way to make a priority queue is based on the heap sort
+  time complexion of max-min heap for inserting or removing item takes
+  O(log(N)) is superior than that of other sorting data structure.
 
-*** Answer
+** Answer
 Sample Code:
 #+BEGIN_SRC python :results output
 import heapq
@@ -405,7 +398,7 @@ print('highest priority of task is ', tasks.pop())
 #+RESULTS:
 : highest priority of task is  ('bar', 1)
    
-** Grouping the keys to multiple values in a dict		      :drill:
+* Grouping the keys to multiple values in a dict					  :drill:
    :PROPERTIES:
    :ID:       CCD8C6B7-9E16-4960-9BCF-BA3340170D3B
    :END:
@@ -418,7 +411,7 @@ for k, v in pairs:
         adict[k] = []
     adict[k].append(v)
 #+end_src
-*** Answer
+** Answer
 #+begin_src python
 from collections import defaultdict
 # The default factory is called without arguments to produce
@@ -444,7 +437,7 @@ print (adict == bdict == cdict)
 #+RESULTS:
 : True
 
-** Keeping the dict's order as the inserting order		      :drill:
+* Keeping the dict's order as the inserting order					  :drill:
    :PROPERTIES:
    :ID:       A5EDB89F-52D7-45AF-AC42-543862790C1A
    :END:
@@ -458,7 +451,7 @@ _dict['kee'] = 3
 print('not as the inserting order: ', _dict)
 #+END_SRC
 
-*** Answer
+** Answer
 tips: OrderedDict maintain a extra link-list of keys to keep track of the
 inserting order. So u should balance if the benefits of OrderDict outweigh
 the extra memory overhead.
@@ -474,7 +467,7 @@ print('as the inserting order: ', _dict)
 : not as the inserting order:  {'kee': 3, 'bar': 2, 'foo': 1}
 : as the inserting order:  OrderedDict([('foo', 1), ('bar', 2), ('kee', 3)])
 
-** Removeing the duplicates from a sequence while maintaining order
+* Removeing the duplicates from a sequence while maintaining order
 Before the solution, as we known, set is implemented by hash_table in python
 , so item sorting in emacs is unsupported as opposed to stl/set. 
 
@@ -502,12 +495,12 @@ def dedupe(items, key = None):
 tips: in ipython , ipython will automatically sort the keys of the set when "output"
 the set. a litttle odd there.
 
-** Make it indexable						      :drill:
+* Make it indexable													  :drill:
    :PROPERTIES:
    :ID:       2C5ED988-5F1A-435C-99D4-36DC6C81971C
    :END:
 :)
-*** Answer
+** Answer
 need to define the __getitem__() method
 #+begin_src python :results output
 class indexable:
@@ -528,12 +521,14 @@ b = indexable([3,5,6])
 #+RESULTS:
 : 2
 
-** Implementing a simple graph structure			      :drill:
+* Implementing a simple graph structure								  :drill:
    :PROPERTIES:
-   :ID:       A01A9D33-5D41-4941-807B-3F4EC1F25778
+   :ID:       4344A1E8-6650-4327-831E-B45BA3FB2A4D
+   :END:
+:ID:       A01A9D33-5D41-4941-807B-3F4EC1F25778
    :
 Implement by dict
-*** Answer
+** Answer
 #+begin_src python :results output
 import copy
 class Graph:
@@ -560,7 +555,7 @@ class Graph:
             return _nodes
 
 #+end_src
-** Naming slice
+* Naming slice
 #+begin_src python :results output
 _slice = slice(1,3)
 data = [0,1,2,3,4]
@@ -569,7 +564,7 @@ print(data[_slice])
 #+RESULTS:
 : [1, 2]
    
-** Determine the most frequently occuring items in a sequence	      :drill:
+* Determine the most frequently occuring items in a sequence		  :drill:
    :PROPERTIES:
    :ID:       33AC6513-CE24-4085-AE31-F6344EB35CA1
    :END:
@@ -584,7 +579,7 @@ words = [
 ]
 #+end_src
 
-*** Answer
+** Answer
 #+begin_src python
 words_counter = Counter(words)
 print(words_counter)
@@ -596,7 +591,7 @@ print(top3)
 : Counter({'eyes': 8, 'the': 5, 'look': 4, 'into': 3, 'my': 3, 'around': 2, 'not': 1, "you're": 1, 'under': 1, "don't": 1})
 : [('eyes', 8), ('the', 5), ('look', 4)]     
 
-** Sort items by the inner property				      :drill:
+* Sort items by the inner property									  :drill:
    :PROPERTIES:
    :ID:       807B5D82-3209-424E-A4CD-0D89DC344E09
    :DRILL_LAST_INTERVAL: 0.0
@@ -630,7 +625,7 @@ rows = [
 : {'lname': 'Jones', 'uid': 1003, 'fname': 'Brian'},
 : {'lname': 'Jones', 'uid': 1004, 'fname': 'Big'}]
 
-*** Answer
+** Answer
 #+begin_src python :results output
 from operator import itemgetter
 uid_getter = itemgetter('uid')
@@ -643,7 +638,10 @@ print(uid_sort)
 (sort #(< ('uid' %) ('uid' %2)) rows) ;; how to compare string in clojure
 #+end_src
 
-** Sort objects without native comparison support 		      :drill:
+* Sort objects without native comparison support					  :drill:
+   :PROPERTIES:
+   :ID:       58923BBF-B5C5-4E28-B94B-E019568B121D
+   :END:
 #+begin_src python
 
 class User:
@@ -657,7 +655,7 @@ users = [User(1), User(20), User(3)]
 
 #+end_src
 
-*** Answer
+** Answer
 Works like where(user=>user.id) filter(user=>user.id > 1000) in csharp
 Just need the *key* item for filtering or sorting. when sorting , the 
 key we need is just id for each item. The second method employs attrgetter
@@ -669,4 +667,5 @@ from operator import attrgetter
 print(sorted(users, key = attrgetter('id')))
 print(users)
 #+end_src
+
 
