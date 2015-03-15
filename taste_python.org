@@ -14,6 +14,7 @@ print(a == b == c == d == e)
 #+END_SRC
 #+RESULTS:
 True
+
 * Enumerator														  :drill:
    :PROPERTIES:
    :ID:       80E13BB4-5C1D-4847-8507-5237464D0DE2
@@ -50,6 +51,7 @@ alternate solution
 3:44
 4:120
 #+end_example
+
 
 * Unpacking															  :drill:
    :PROPERTIES:
