@@ -3,7 +3,6 @@
    :ID:       888B10BB-B2DA-44BB-AA9F-EF645409BC1A
    :END:
 4 ways to define a dict
-** Answer
 #+BEGIN_SRC python :results output
 a = dict(one=1, two=2, three=3)
 b = {'one': 1, 'two': 2, 'three': 3}
@@ -14,7 +13,6 @@ print(a == b == c == d == e)
 #+END_SRC
 #+RESULTS:
 True
-
 * Enumerator														  :drill:
    :PROPERTIES:
    :ID:       80E13BB4-5C1D-4847-8507-5237464D0DE2
@@ -28,7 +26,7 @@ True
    :DRILL_LAST_REVIEWED: <2014-08-12 Tue 00:33>
    :END:
 Enumerator help get the index of your collections
-** Answer
+
 #+BEGIN_SRC python :results output
 l = [100, 3, 20, 44, 120]
 for (index , item ) in enumerate(l):
@@ -52,13 +50,12 @@ alternate solution
 4:120
 #+end_example
 
-
 * Unpacking															  :drill:
    :PROPERTIES:
    :ID:       9E8E3217-AF45-43E9-B1EA-10213A5E7ADA
    :END:
 Unpacking sample:
-** Answer
+
 #+BEGIN_SRC python :results output
 first, *rest = (3, 4, 4, 5, 2)
 # rest is vector, [4, 4, 5, 2]
@@ -97,7 +94,7 @@ print('sum = ', sum(items))
     :END:
 Understand two ways to implement iterable object in python, 
 Try to use class way to implement Fib series.
-*** Answer
+*
 #+BEGIN_SRC python :results output
 # first method: implement _getitem_(self, index) 
 # for the interation interface
@@ -181,21 +178,22 @@ dict.values # return value iterator
 
 * Generation
 ** The generator VS the iterator									  :drill:
+   SCHEDULED: <2015-03-18 Wed>
     :PROPERTIES:
     :ID:       E26B17FE-F92B-4721-88A4-A2101E984964
-    :DRILL_LAST_INTERVAL: 0.0
-    :DRILL_REPEATS_SINCE_FAIL: 0
-    :DRILL_TOTAL_REPEATS: 0
+	:DRILL_LAST_INTERVAL: 2.3472
+	:DRILL_REPEATS_SINCE_FAIL: 1
+	:DRILL_TOTAL_REPEATS: 1
     :DRILL_FAILURE_COUNT: 1
-    :DRILL_AVERAGE_QUALITY: 1.0
-    :DRILL_EASE: 1.272
-    :DRILL_LAST_QUALITY: 1
-    :DRILL_LAST_REVIEWED: <2014-08-12 Tue 00:35>
+	:DRILL_AVERAGE_QUALITY: 3.0
+	:DRILL_EASE: 2.456
+	:DRILL_LAST_QUALITY: 3
+	:DRILL_LAST_REVIEWED: <2015-03-16 Mon 08:02>
     :END:
 the generator actually belongs to iterator
 qbut what the difference betweeen them
 
-*** Answer
+*
 |                           | generator                          | iteartor                          |
 |---------------------------+------------------------------------+-----------------------------------|
 | memory storation?         | on the fly (generate each at once) | total store in memory             |
@@ -229,7 +227,7 @@ print([i for i in recurse(l)])
    :END:
 I need a function searching some text(e.g. "python") and return 
 its line and its previous 5 lines as well.
-** Answer
+
 #+BEGIN_SRC python
 from collections import deque
 buffer = deque(maxlen = 3)
@@ -273,7 +271,7 @@ for line, pre_lines in search_pattern("empty.txt", "independent", 3):
     :END:
 Undersand heapsort and common sort then retrieve the top 3 largest prices
 among these tokens by heapq
-*** Answer
+*
 1. Heap is a sorting data structure in python and other languages
    e.g. in python. 
 2. It requires O(logn) to "pop" a smallest item of heqpq.
@@ -363,7 +361,7 @@ pure min:  {'price': 16.35, 'shares': 45, 'name': 'YHOO'}
   time complexion of max-min heap for inserting or removing item takes
   O(log(N)) is superior than that of other sorting data structure.
 
-** Answer
+
 Sample Code:
 #+BEGIN_SRC python :results output
 import heapq
@@ -413,7 +411,7 @@ for k, v in pairs:
         adict[k] = []
     adict[k].append(v)
 #+end_src
-** Answer
+
 #+begin_src python
 from collections import defaultdict
 # The default factory is called without arguments to produce
@@ -453,7 +451,7 @@ _dict['kee'] = 3
 print('not as the inserting order: ', _dict)
 #+END_SRC
 
-** Answer
+
 tips: OrderedDict maintain a extra link-list of keys to keep track of the
 inserting order. So u should balance if the benefits of OrderDict outweigh
 the extra memory overhead.
@@ -502,7 +500,7 @@ the set. a litttle odd there.
    :ID:       2C5ED988-5F1A-435C-99D4-36DC6C81971C
    :END:
 :)
-** Answer
+
 need to define the __getitem__() method
 #+begin_src python :results output
 class indexable:
@@ -530,7 +528,7 @@ b = indexable([3,5,6])
 :ID:       A01A9D33-5D41-4941-807B-3F4EC1F25778
    :
 Implement by dict
-** Answer
+
 #+begin_src python :results output
 import copy
 class Graph:
@@ -581,7 +579,7 @@ words = [
 ]
 #+end_src
 
-** Answer
+
 #+begin_src python
 words_counter = Counter(words)
 print(words_counter)
@@ -594,16 +592,17 @@ print(top3)
 : [('eyes', 8), ('the', 5), ('look', 4)]     
 
 * Sort items by the inner property									  :drill:
+  SCHEDULED: <2015-03-18 Wed>
    :PROPERTIES:
    :ID:       807B5D82-3209-424E-A4CD-0D89DC344E09
-   :DRILL_LAST_INTERVAL: 0.0
-   :DRILL_REPEATS_SINCE_FAIL: 0
-   :DRILL_TOTAL_REPEATS: 0
+   :DRILL_LAST_INTERVAL: 2.2172
+   :DRILL_REPEATS_SINCE_FAIL: 1
+   :DRILL_TOTAL_REPEATS: 1
    :DRILL_FAILURE_COUNT: 2
-   :DRILL_AVERAGE_QUALITY: 1.0
-   :DRILL_EASE: 1.272
-   :DRILL_LAST_QUALITY: 1
-   :DRILL_LAST_REVIEWED: <2014-08-12 Tue 00:33>
+   :DRILL_AVERAGE_QUALITY: 3.0
+   :DRILL_EASE: 2.456
+   :DRILL_LAST_QUALITY: 3
+   :DRILL_LAST_REVIEWED: <2015-03-16 Mon 08:02>
    :END:
 Sort by the 'fname' or 'uid' or other "column" in clojure and python
 #+begin_src python :resutls outpt
@@ -627,7 +626,7 @@ rows = [
 : {'lname': 'Jones', 'uid': 1003, 'fname': 'Brian'},
 : {'lname': 'Jones', 'uid': 1004, 'fname': 'Big'}]
 
-** Answer
+
 #+begin_src python :results output
 from operator import itemgetter
 uid_getter = itemgetter('uid')
@@ -657,7 +656,7 @@ users = [User(1), User(20), User(3)]
 
 #+end_src
 
-** Answer
+
 Works like where(user=>user.id) filter(user=>user.id > 1000) in csharp
 Just need the *key* item for filtering or sorting. when sorting , the 
 key we need is just id for each item. The second method employs attrgetter
