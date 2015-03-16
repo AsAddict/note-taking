@@ -31,7 +31,7 @@ for index in range (len(l)):
 # 4:120
 #+END_SRC
 
-* Unpacking pc1.2
+* Unpacking <pc1.2>
 #+BEGIN_SRC python :results output
 first, *rest = (3, 4, 4, 5, 2)
 # rest is vector, [4, 4, 5, 2]
@@ -59,7 +59,7 @@ def sum (items):
 print('sum = ', sum(items))  # sum =  19
 #+END_SRC
   
-* Iteration (the enumerator is csharp)
+* Iteration <the enumerator is csharp>
 ** the principles to make sth iterable
 Understand two ways to implement iterable object in python, 
 Try to use class way to implement Fib series.
@@ -151,7 +151,7 @@ def recurse(l):
 print([i for i in recurse(l)])  #[0, 1, 8, 9, 33, 23, 19, 4]
 #+END_SRC
 
-* Keeping the n last items pc1.3
+* Keeping the n last items <pc1.3>
 I need a function searching some text(e.g. "python") and return 
 its line and its previous 5 lines as well.
 
@@ -185,7 +185,7 @@ for line, pre_lines in search_pattern("empty.txt", "independent", 3):
         print(l)
     print('*' * 68)
 #+END_SRC
-* Finding the largest/smarllest n items pc1.4
+* Finding the largest/smarllest n items <pc1.4>
 ** using heap sort items
 Undersand heapsort and common sort then retrieve the top 3 largest prices
 among these tokens by heapq
